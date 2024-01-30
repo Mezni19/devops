@@ -1,0 +1,56 @@
+<ion-menu contentId="main-content">
+  <ion-header>
+    <ion-toolbar color="primary">
+      <ion-title>Hello</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-button [routerLink]="['/mes-annonce']"> Mes Annonces </ion-button>
+
+  <ion-content class="ion-padding">
+    <ion-button (click)="logout()">
+      <ion-icon slot="icon-only" name="log-out"></ion-icon>Log-Out
+    </ion-button>
+  </ion-content>
+</ion-menu>
+<div class="ion-page" id="main-content">
+  <ion-header>
+    
+    <ion-toolbar color="primary">
+      <ion-buttons slot="start">
+        <ion-menu-button></ion-menu-button>
+      </ion-buttons>
+
+      <ion-title>All annonce</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ion-row>
+    <ion-col size="9" offset="1" >
+      <ion-select label="Categorie" label-placement="floating" fill="solid" 
+      [(ngModel)]="categorie" (ionChange)="getAnnoncesbyCategory()">
+      <ion-select-option value="">All</ion-select-option>
+      <ion-select-option value="Accessory">Accessory</ion-select-option>
+        <ion-select-option value="Computer">Computer</ion-select-option>
+        <ion-select-option value="Smartphone">Smartphone</ion-select-option>
+      </ion-select>
+  </ion-col>
+  </ion-row>
+  <ion-content class="padding">
+    <ion-item 
+    [routerLink]="['/details', annonce.id]"
+    *ngFor="let annonce of annonceList | async">
+      <ion-label>
+        <h2>{{annonce.title}}</h2>
+        <p>Description: {{ annonce.description }}</p>
+        <p>Price: {{ annonce.prix }}</p>
+        <p>{{ annonce.categorie }}</p>
+      </ion-label>
+    </ion-item>
+
+    <ion-fab slot="fixed" vertical="bottom" horizontal="center">
+      <ion-fab-button [routerLink]="['/add-annonce']">
+        <ion-icon name="add"></ion-icon>
+      </ion-fab-button>
+    </ion-fab>
+  </ion-content>
+</div>
